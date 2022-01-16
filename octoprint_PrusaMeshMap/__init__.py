@@ -25,27 +25,27 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                          octoprint.plugin.StartupPlugin,
                          octoprint.plugin.EventHandlerPlugin):
 
-	##~~ SettingsPlugin mixin
+    ##~~ SettingsPlugin mixin
 
-	def get_settings_defaults(self):
-		return dict(
+    def get_settings_defaults(self):
+        return dict(
                         do_level_gcode = 'G28 W ; home all without mesh bed level\nG80 ; mesh bed leveling\nG81 ; check mesh leveling results',
                         matplotlib_heatmap_theme = 'viridis'
-		)
+        )
 
-	##~~ AssetPlugin mixin
+    ##~~ AssetPlugin mixin
 
-	def get_assets(self):
-		# Define your plugin's asset files to automatically include in the
-		# core UI here.
-		return dict(
-			js=["js/PrusaMeshMap.js"],
-			css=["css/PrusaMeshMap.css"],
-			less=["less/PrusaMeshMap.less"],
+    def get_assets(self):
+        # Define your plugin's asset files to automatically include in the
+        # core UI here.
+        return dict(
+            js=["js/PrusaMeshMap.js"],
+            css=["css/PrusaMeshMap.css"],
+            less=["less/PrusaMeshMap.less"],
                         img_heatmap=["img/heatmap.png"]
-		)
+        )
                 
-	##~~ TemplatePlugin mixin
+    ##~~ TemplatePlugin mixin
 
         #def get_template_configs(self):
         #        return [
@@ -59,27 +59,27 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
             if event is "Connected":
                 self._printer.commands("M1234")
 
-	##~~ Softwareupdate hook
+    ##~~ Softwareupdate hook
 
-	def get_update_information(self):
-		# Define the configuration for your plugin to use with the Software Update
-		# Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
-		# for details.
-		return dict(
-			PrusaMeshMap=dict(
-				displayName="Prusameshmap Plugin",
-				displayVersion=self._plugin_version,
+    def get_update_information(self):
+        # Define the configuration for your plugin to use with the Software Update
+        # Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
+        # for details.
+        return dict(
+            PrusaMeshMap=dict(
+                displayName="Prusameshmap Plugin",
+                displayVersion=self._plugin_version,
 
-				# version check: github repository
-				type="github_release",
-				user="ff8jake",
-				repo="OctoPrint-PrusaMeshMap",
-				current=self._plugin_version,
+                # version check: github repository
+                type="github_release",
+                user="ff8jake",
+                repo="OctoPrint-PrusaMeshMap",
+                current=self._plugin_version,
 
-				# update method: pip
-				pip="https://github.com/ff8jake/OctoPrint-PrusaMeshMap/archive/{target_version}.zip"
-			)
-		)
+                # update method: pip
+                pip="https://github.com/ff8jake/OctoPrint-PrusaMeshMap/archive/{target_version}.zip"
+            )
+        )
 
         ##~~ GCode Received hook
 
@@ -245,12 +245,12 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 __plugin_name__ = "Prusa Mesh Leveling"
 
 def __plugin_load__():
-	global __plugin_implementation__
-	__plugin_implementation__ = PrusameshmapPlugin()
+    global __plugin_implementation__
+    __plugin_implementation__ = PrusameshmapPlugin()
 
-	global __plugin_hooks__
-	__plugin_hooks__ = {
-		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
+    global __plugin_hooks__
+    __plugin_hooks__ = {
+        "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
                 "octoprint.comm.protocol.gcode.received": __plugin_implementation__.mesh_level_check
-	}
+    }
 
