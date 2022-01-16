@@ -253,4 +253,3 @@ def __plugin_load__():
         "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
                 "octoprint.comm.protocol.gcode.received": __plugin_implementation__.mesh_level_check
     }
-
