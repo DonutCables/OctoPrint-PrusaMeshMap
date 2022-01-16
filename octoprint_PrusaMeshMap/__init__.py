@@ -19,6 +19,8 @@ import re
 import octoprint.plugin
 import octoprint.printer
 
+__plugin_pythoncompat__ = ">=2.7,<4"
+
 class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                          octoprint.plugin.AssetPlugin,
                          octoprint.plugin.TemplatePlugin,
